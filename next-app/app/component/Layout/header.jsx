@@ -4,8 +4,8 @@ import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
-import Login from "../Ui/LinkBtn/loginButton";
-import Register from "../Ui/LinkBtn/registerButton";
+import LoginBtn from "../Ui/LinkBtn/loginButton";
+import RegisterBtn from "../Ui/LinkBtn/registerButton";
 
 export default function Header() {
     return (
@@ -16,10 +16,10 @@ export default function Header() {
                         MyFavoritePlace <FontAwesomeIcon icon={faLocationDot} size="2xl" className='text-lg font-bold text-red-500' />
                     </span>
                     <div className='pt-1'>
-                        <Login className="" />
+                        <LoginBtn className="" />
                     </div>
                     <div className='pt-1 -mr-2'>
-                        <Register />
+                        <RegisterBtn />
                     </div>
                 </div>
             </div>
