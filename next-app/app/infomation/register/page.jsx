@@ -16,7 +16,7 @@ export default function Register() {
                     >
                         <img
                             alt="Night"
-                            src="/images/infomation/gummy-location.png"
+                            src="/images/infomation/juicy-movement-map.png"
                             className="absolute inset-0 object-cover w-full h-full bg-blue-100 opacity-800"
                         />
 

@@ -16,7 +16,7 @@ export default function Header() {
                         MyFavoritePlace <FontAwesomeIcon icon={faLocationDot} size="2xl" className='text-lg font-bold text-red-500' />
                     </span>
                     <div className='pt-1'>
-                        <LoginBtn className="" />
+                        <LoginBtn />
                     </div>
                     <div className='pt-1 -mr-2'>
                         <RegisterBtn />
