@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faStreetView } from '@fortawesome/free-solid-svg-icons'
@@ -6,7 +8,68 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
-export default function Register() {
+
+const Register = () => {
+    const [login_id, setLoginId] = useState("")
+    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [password_confirmation, setPasswordConfirmation] = useState("")
+    const [error, setError] = useState("")
+    const roll = 10
+    const delete_flg = 0
+    const logo = "null"
+
+    //登録完了後にログイン画面に移動
+    const router = useRouter()
+
+    const submitHandler = async (e) => {
+        e.preventDefault()
+        const res = await fetch("http://localhost:3000/api/register", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                login_id: login_id,
+                username: username,
+                email: email,
+                password: password,
+                roll: roll,
+                delete_flg: delete_flg,
+                user_logo: logo,
+            })
+        })
+        const data = await res.json()
+        console.log("ここまできた");
+        if (data.created) {
+            console.log("ok");
+            router.push("/infomation/login")
+        } else {
+            console.log("no");
+            setError(data.message)
+        }
+    }
+    // const changeHandler = (e) => {
+    //     const { login_id, value } = e.target
+
+    //     switch (login_id) {
+    //         case "login_id":
+    //             setLoginId(value)
+    //             break;
+    //         case "username":
+    //             setUsername(value)
+    //             break;
+    //         case "email":
+    //             setEmail(value)
+    //             break;
+    //         case "password":
+    //             setPassword(value)
+    //             break;
+    //     }
+    // }
+
     return (
         <>
             <section className="bg-white">
@@ -34,7 +97,7 @@ export default function Register() {
                             <div className='col-span-12 sm:col-span-6'>
                                 <span className='text-2xl font-bold text-gray-600'>会員登録   <FontAwesomeIcon className='font-bold text-yellow-500' icon={faStreetView} /></span>
                             </div>
-                            <form action="#" className="grid grid-cols-6 gap-6 mt-8">
+                            <form onSubmit={submitHandler} className="grid grid-cols-6 gap-6 mt-8">
                                 <div className="col-span-12 sm:col-span-6">
                                     <label
                                         htmlFor="loginId"
@@ -44,9 +107,30 @@ export default function Register() {
                                     </label>
 
                                     <input
+                                        // onChange={changeHandler}
+                                        value={login_id}
+                                        onChange={(e) => setLoginId(e.target.value)}
                                         type="text"
                                         id="loginId"
                                         name="login_id"
+                                        className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
+                                    />
+                                </div>
+
+                                <div className="col-span-12 sm:col-span-6">
+                                    <label
+                                        htmlFor="username"
+                                        className="block text-sm font-medium text-gray-700"
+                                    >
+                                        ユーザーネーム
+                                    </label>
+
+                                    <input
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        type="text"
+                                        id="username"
+                                        name="username"
                                         className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
                                     />
                                 </div>
@@ -57,6 +141,8 @@ export default function Register() {
                                     </label>
 
                                     <input
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         type="email"
                                         id="Email"
                                         name="email"
@@ -73,8 +159,10 @@ export default function Register() {
                                     </label>
 
                                     <input
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         type="password"
-                                        id="Password"
+                                        id="password"
                                         name="password"
                                         className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
                                     />
@@ -89,6 +177,8 @@ export default function Register() {
                                     </label>
 
                                     <input
+                                        value={password_confirmation}
+                                        onChange={(e) => setPasswordConfirmation(e.target.value)}
                                         type="password"
                                         id="PasswordConfirmation"
                                         name="password_confirmation"
@@ -129,3 +219,5 @@ export default function Register() {
         </>
     )
 }
+
+export default Register

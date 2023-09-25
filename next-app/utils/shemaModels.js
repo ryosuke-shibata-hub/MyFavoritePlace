@@ -1,20 +1,20 @@
-import mongose from "mongose";
+import mongoose from "mongoose";
 
-const Schema = mongose.Schema
+const Schema = mongoose.Schema
 const UserSchema = new Schema({
     username: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     login_id: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     email: {
         type: String,
-        require: true,
+        required: true,
         unique: true,
     },
     password: {
@@ -23,19 +23,19 @@ const UserSchema = new Schema({
     },
     roll: {
         type: Number,
-        require: true,
-        unique: fail,
+        required: true,
+        unique: false,
     },
     delete_flg: {
         type: Number,
-        require: true,
+        required: true,
         unique: false
     },
-    logo: {
-        type: Boolean,
-        require: false,
+    user_logo: {
+        type: String,
+        required: false,
         unique: true,
     }
 })
 
-export const UserModel = mongose.models.User || mongose.models("User", UserSchema)
+export const UserModel = mongoose.models.User || mongoose.model("User", UserSchema)

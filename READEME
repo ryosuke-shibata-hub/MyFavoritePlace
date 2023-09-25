@@ -11,5 +11,7 @@
 # npm i --save @fortawesome/free-regular-svg-icons
 # npm i --save @fortawesome/react-fontawesome@latest
 
-# mongodb使用
+# mongodb使用(mongo0se)
 # npm install mongodb
+# npm install mongoose
+# npm install mongoose

@@ -19,6 +19,7 @@
     "eslint-config-next": "13.4.19",
     "font-awesome": "^4.7.0",
     "mongodb": "^6.1.0",
+    "mongoose": "^7.5.2",
     "next": "13.4.19",
     "postcss": "8.4.29",
     "promise-mysql": "^5.2.0",
