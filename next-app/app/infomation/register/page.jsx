@@ -23,51 +23,44 @@ const Register = () => {
     //登録完了後にログイン画面に移動
     const router = useRouter()
 
+
     const submitHandler = async (e) => {
         e.preventDefault()
-        const res = await fetch("http://localhost:3000/api/register", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                login_id: login_id,
-                username: username,
-                email: email,
-                password: password,
-                roll: roll,
-                delete_flg: delete_flg,
-                user_logo: logo,
+        try {
+            const res = await fetch("http://localhost:3000/api/register", {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    login_id: login_id,
+                    username: username,
+                    email: email,
+                    password: password,
+                    roll: roll,
+                    delete_flg: delete_flg,
+                    user_logo: logo,
+                })
             })
-        })
-        const data = await res.json()
-        console.log("ここまできた");
-        if (data.created) {
-            console.log("ok");
-            router.push("/infomation/login")
-        } else {
-            console.log("no");
-            setError(data.message)
+            console.log("kokoko");
+
+            console.log(await res.json());
+            const data = await res.json()
+            console.log("ここまできた");
+            if (data.created) {
+                console.log("ok");
+                router.push("/infomation/login")
+            } else {
+                console.log("no");
+                setError(data.message)
+            }
+        } catch (error) {
+            console.error("JSONパースエラー:", error);
         }
     }
-    // const changeHandler = (e) => {
-    //     const { login_id, value } = e.target
 
-    //     switch (login_id) {
-    //         case "login_id":
-    //             setLoginId(value)
-    //             break;
-    //         case "username":
-    //             setUsername(value)
-    //             break;
-    //         case "email":
-    //             setEmail(value)
-    //             break;
-    //         case "password":
-    //             setPassword(value)
-    //             break;
-    //     }
+
     // }
 
     return (
@@ -162,7 +155,7 @@ const Register = () => {
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         type="password"
-                                        id="password"
+                                        id="Password"
                                         name="password"
                                         className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
                                     />
