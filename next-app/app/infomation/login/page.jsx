@@ -1,4 +1,6 @@
-import React from 'react'
+"use client"
+import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons'
 import { faStreetView } from '@fortawesome/free-solid-svg-icons'
@@ -6,7 +8,55 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
 
-export default function Register() {
+const Login = () => {
+    const [login_id, setLoginId] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
+
+    //ログイン成功時にトップページに遷移
+    const router = useRouter()
+
+    //フォームデータをapi側にリクエストを送る
+    const submitHandler = async (e) => {
+        e.preventDefault()
+
+        const res = await fetch("http://localhost:3000/api/login", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                login_id: login_id,
+                password: password,
+            })
+        })
+
+        // apiからのレスポンスを受け取る
+        const data = await res.json()
+        if (data.token) {
+            console.log("ログイン成功");
+            localStorage.setItem("token", data.token)
+            router.push("/myfavoriteplace/top")
+        } else {
+            setError(data.message)
+        }
+    }
+    const changeHandler = (e) => {
+        const { name, value } = e.target;
+
+        switch (name) {
+            case "email":
+                setEmail(value);
+                break;
+            case "password":
+                setPassword(value);
+                break;
+        }
+    }
+    // }
+
+    // export default function Login() {
     return (
         <>
             <section className="bg-white">
@@ -17,11 +67,11 @@ export default function Register() {
                         <img
                             alt="Night"
                             src="/images/infomation/gummy-location.png"
-                            className="absolute inset-0 object-cover w-full h-full bg-blue-100 opacity-800"
+                            className="absolute inset-0 object-cover w-full h-full bg-white opacity-800"
                         />
 
                         <div className="hidden lg:relative lg:block lg:p-12">
-                            <h2 className="mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl">
+                            <h2 className="mt-6 text-2xl font-bold text-gray-700 sm:text-3xl md:text-4xl">
                                 お気に入りの場所を共有する・見つける<FontAwesomeIcon icon={faLocationDot} size="2xl" className='text-lg font-bold text-red-500' />
                             </h2>
                         </div>
@@ -32,7 +82,7 @@ export default function Register() {
                     >
                         <div className="max-w-xl lg:max-w-3xl">
                             <div className='col-span-12 sm:col-span-6'>
-                                <span className='text-2xl font-bold text-gray-600'>会員登録   <FontAwesomeIcon className='font-bold text-yellow-500' icon={faStreetView} /></span>
+                                <span className='text-2xl font-bold text-gray-600'>ログイン   <FontAwesomeIcon className='font-bold text-yellow-500' icon={faStreetView} /></span>
                             </div>
                             <form action="#" className="grid grid-cols-6 gap-6 mt-8">
                                 <div className="col-span-12 sm:col-span-6">
@@ -47,19 +97,6 @@ export default function Register() {
                                         type="text"
                                         id="loginId"
                                         name="login_id"
-                                        className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
-                                    />
-                                </div>
-
-                                <div className="col-span-12 sm:col-span-6">
-                                    <label htmlFor="Email" className="block text-sm font-medium text-gray-700">
-                                        メールアドレス
-                                    </label>
-
-                                    <input
-                                        type="email"
-                                        id="Email"
-                                        name="email"
                                         className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
                                     />
                                 </div>
@@ -80,45 +117,25 @@ export default function Register() {
                                     />
                                 </div>
 
-                                <div className="col-span-12 sm:col-span-6">
-                                    <label
-                                        htmlFor="PasswordConfirmation"
-                                        className="block text-sm font-medium text-gray-700"
-                                    >
-                                        確認用パスワード
-                                    </label>
-
-                                    <input
-                                        type="password"
-                                        id="PasswordConfirmation"
-                                        name="password_confirmation"
-                                        className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
-                                    />
-                                </div>
-
-                                <div className="col-span-6">
-                                    <p className="text-sm text-gray-500">
-                                        アカウントを作成すると、
-                                        <a href="#" className="text-gray-700 underline">
-                                            利用規約とプライバシー
-                                        </a>
-                                        と
-                                        <a href="#" className="text-gray-700 underline">
-                                            ポリシーに同意したことになります。
-                                        </a>
-                                    </p>
-                                </div>
-
                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                     <button
                                         className="inline-block px-12 py-3 text-sm font-medium text-white transition bg-blue-600 border border-blue-600 rounded-md shrink-0 hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                                     >
-                                        アカウントを作成する
+                                        ログイン
                                     </button>
 
                                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                                        すでにアカウントをお持ちですか？
-                                        <a href="#" className="text-gray-700 underline">ログイン</a>
+                                        <a href="#" className="text-gray-700 underline">
+                                            ログインIDまたはパスワードをお忘れですか？
+                                        </a>
+                                    </p>
+                                </div>
+                                <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
+                                    <p className="mt-4 text-sm text-gray-500 sm:mt-0">
+                                        アカウントをお持ちでない方は
+                                        <a href="/infomation/register" className="text-gray-700 underline">
+                                            こちら
+                                        </a>
                                     </p>
                                 </div>
                             </form>
@@ -129,3 +146,4 @@ export default function Register() {
         </>
     )
 }
+export default Login

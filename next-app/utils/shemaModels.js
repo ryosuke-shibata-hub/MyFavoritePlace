@@ -33,8 +33,8 @@ const UserSchema = new Schema({
     },
     user_logo: {
         type: String,
-        required: false,
-        unique: true,
+        required: true,
+        unique: false,
     }
 })
 

@@ -3,66 +3,47 @@ import connectDB from "@/utils/connectDB";
 import { UserModel } from "@/utils/shemaModels";
 import { NextResponse } from "next/server";
 
-async function createUser(req) {
-    const body = await req.json();
-    // ユーザーの作成ロジック
-    await UserModel.create(body);
-    return { message: "ユーザー登録成功" };
-}
+export async function POST(req, res) {
 
-
-// export async function POST(req, res) {
-//     // const body = await req.json()
-//     const requestLoginId = req.body.login_id
-//     try {
-//         if (req.method === "POST") {
-//             // DBにユーザーが存在しているかチェック
-//             await connectDB()
-//             const checkUser = await UserModel.findOne({ login_id: requestLoginId })
-//             console.log("チェックおk");
-//             console.log(checkUser);
-// if (checkUser) {
-//     console.log("すでに登録済みのアカウントです。");
-//     return NextResponse.json({ message: "すでに登録済みのアカウントです。" })
-// } else {
-//     console.log("新規アカウント");
-//     const res = await createUser(req);
-//     return res.status(200).json();
-// }
-//         }
-//         console.log("不正アクセス");
-//         console.log(error);
-//         return NextResponse.json({ message: "アカウント登録に失敗しました" })
-
-//     } catch (error) {
-//         console.log("エラー");
-//         console.log(error);
-//         return NextResponse.json({ message: "アカウント登録に失敗しました" })
-//     }
-
-//     return new Response(JSON.stringify({ body: returnBody }))
-// }
-
-export async function RegisterUser(req, res) {
-    console.log("koko");
     try {
-        await connectDB
+        await connectDB()
 
-        const requestLoginId = req.body.login_id
+        const bcrypt = require('bcrypt');
+        const body = await req.json()
+        //受け取った値からloginIdのみ取り出す
+        const requestLoginId = body.login_id
+        //既存アカウントの存在チェック
         const checkUser = await UserModel.findOne({ login_id: requestLoginId })
 
         if (checkUser) {
-            console.log("すでに登録済みのアカウントです。");
-            return res.status(400).json({ message: "すでに登録済みのユーザー" })
+            return NextResponse.json({
+                message: "このアカウントは作成できません。"
+            }, {
+                status: 200
+            })
         } else {
-            console.log("新規アカウント");
-            await UserModel.create(req.body)
-            return res.status(200).json({ message: "ユーザー登録成功" })
+            //hashのソルトの値
+            const saltRounds = 10
+            // ユーザーが提供したパスワード
+            const plaintextPassword = body.password
+            const hashedPassword = await bcrypt.hash(plaintextPassword, saltRounds)
+            //提供されたパスワードをhash化
+            body.password = hashedPassword
+
+            await UserModel.create(body)
+            return NextResponse.json({
+                message: "ユーザー登録完了"
+            }, {
+                status: 200
+            })
         }
 
     } catch (error) {
-        return res.status(400).json({ message: "ユーザー登録失敗" })
+        console.log("例外エラー");
+        return NextResponse.json({
+            message: "ユーザー登録失敗"
+        }, {
+            status: 400
+        })
     }
 }
-
-// export default RegisterUser

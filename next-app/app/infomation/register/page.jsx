@@ -18,7 +18,7 @@ const Register = () => {
     const [error, setError] = useState("")
     const roll = 10
     const delete_flg = 0
-    const logo = "null"
+    const logo = "/default"
 
     //登録完了後にログイン画面に移動
     const router = useRouter()
@@ -43,13 +43,9 @@ const Register = () => {
                     user_logo: logo,
                 })
             })
-            console.log("kokoko");
-
-            console.log(await res.json());
             const data = await res.json()
-            console.log("ここまできた");
-            if (data.created) {
-                console.log("ok");
+
+            if (data.message === "ユーザー登録完了") {
                 router.push("/infomation/login")
             } else {
                 console.log("no");
@@ -59,9 +55,6 @@ const Register = () => {
             console.error("JSONパースエラー:", error);
         }
     }
-
-
-    // }
 
     return (
         <>
@@ -100,7 +93,6 @@ const Register = () => {
                                     </label>
 
                                     <input
-                                        // onChange={changeHandler}
                                         value={login_id}
                                         onChange={(e) => setLoginId(e.target.value)}
                                         type="text"
@@ -201,7 +193,7 @@ const Register = () => {
 
                                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                         すでにアカウントをお持ちですか？
-                                        <a href="#" className="text-gray-700 underline">ログイン</a>
+                                        <a href="/infomation/login" className="text-gray-700 underline">ログイン</a>
                                     </p>
                                 </div>
                             </form>
