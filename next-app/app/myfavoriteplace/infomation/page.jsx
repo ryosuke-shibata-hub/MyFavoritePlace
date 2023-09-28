@@ -1,5 +1,5 @@
-import Footer from "../component/Layout/footer";
-import Header from "../component/Layout/header";
+import Footer from "../../component/Layout/footer";
+import Header from "../../component/Layout/header";
 import Image from 'next/image'
 import Link from "next/link";
 
@@ -115,7 +115,7 @@ export default function InfomationTop() {
                             alt="info-secound Logo"
                         />
                         <Link
-                            href="/top"
+                            href="/myfavoriteplace/top"
                             className="w-full px-6 py-4 text-4xl font-bold text-white bg-blue-400 border-2 border-white rounded-full focus:outline-none hover:bg-white hover:text-gray-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
                         >
                             みんなのお気に入りの"場所"を見に行く？
@@ -131,7 +131,7 @@ export default function InfomationTop() {
                             alt="info-secound Logo"
                         />
                         <Link
-                            href="/mypage"
+                            href="/myfavoriteplace/mypage"
                             className="w-full px-6 py-4 text-4xl font-bold text-white bg-blue-400 border-2 border-white rounded-full focus:outline-none hover:bg-white hover:text-gray-700 focus:z-10 focus:ring-4 focus:ring-gray-200"
                         >
                             あなたのお気に入りの"場所"を共有する？

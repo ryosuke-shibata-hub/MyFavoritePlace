@@ -31,9 +31,9 @@ const Login = () => {
                 password: password,
             })
         })
-
         // apiからのレスポンスを受け取る
         const data = await res.json()
+
         if (data.token) {
             console.log("ログイン成功");
             localStorage.setItem("token", data.token)
@@ -42,21 +42,7 @@ const Login = () => {
             setError(data.message)
         }
     }
-    const changeHandler = (e) => {
-        const { name, value } = e.target;
 
-        switch (name) {
-            case "email":
-                setEmail(value);
-                break;
-            case "password":
-                setPassword(value);
-                break;
-        }
-    }
-    // }
-
-    // export default function Login() {
     return (
         <>
             <section className="bg-white">
@@ -84,7 +70,7 @@ const Login = () => {
                             <div className='col-span-12 sm:col-span-6'>
                                 <span className='text-2xl font-bold text-gray-600'>ログイン   <FontAwesomeIcon className='font-bold text-yellow-500' icon={faStreetView} /></span>
                             </div>
-                            <form action="#" className="grid grid-cols-6 gap-6 mt-8">
+                            <form onSubmit={submitHandler} action="#" className="grid grid-cols-6 gap-6 mt-8">
                                 <div className="col-span-12 sm:col-span-6">
                                     <label
                                         htmlFor="loginId"
@@ -94,6 +80,8 @@ const Login = () => {
                                     </label>
 
                                     <input
+                                        value={login_id}
+                                        onChange={(e) => setLoginId(e.target.value)}
                                         type="text"
                                         id="loginId"
                                         name="login_id"
@@ -110,6 +98,8 @@ const Login = () => {
                                     </label>
 
                                     <input
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
                                         type="password"
                                         id="Password"
                                         name="password"
@@ -119,6 +109,7 @@ const Login = () => {
 
                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                     <button
+                                        type='submit'
                                         className="inline-block px-12 py-3 text-sm font-medium text-white transition bg-blue-600 border border-blue-600 rounded-md shrink-0 hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                                     >
                                         ログイン
@@ -133,7 +124,7 @@ const Login = () => {
                                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                         アカウントをお持ちでない方は
-                                        <a href="/infomation/register" className="text-gray-700 underline">
+                                        <a href="/myfavoriteplace/register" className="text-gray-700 underline">
                                             こちら
                                         </a>
                                     </p>

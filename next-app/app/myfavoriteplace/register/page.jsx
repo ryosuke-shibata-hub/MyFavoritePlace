@@ -46,7 +46,7 @@ const Register = () => {
             const data = await res.json()
 
             if (data.message === "ユーザー登録完了") {
-                router.push("/infomation/login")
+                router.push("/myfavoriteplace/login")
             } else {
                 console.log("no");
                 setError(data.message)
@@ -193,7 +193,7 @@ const Register = () => {
 
                                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                         すでにアカウントをお持ちですか？
-                                        <a href="/infomation/login" className="text-gray-700 underline">ログイン</a>
+                                        <a href="/myfavoriteplace/login" className="text-gray-700 underline">ログイン</a>
                                     </p>
                                 </div>
                             </form>
