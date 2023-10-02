@@ -3,7 +3,7 @@ import connectDB from "@/utils/connectDB";
 import { UserModel } from "@/utils/shemaModels";
 import { NextResponse } from "next/server";
 
-export async function POST(req, res) {
+export async function POST(req) {
 
     try {
         await connectDB()

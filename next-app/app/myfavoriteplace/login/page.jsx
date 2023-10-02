@@ -19,28 +19,32 @@ const Login = () => {
     //フォームデータをapi側にリクエストを送る
     const submitHandler = async (e) => {
         e.preventDefault()
-
-        const res = await fetch("http://localhost:3000/api/login", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                login_id: login_id,
-                password: password,
+        try {
+            const res = await fetch("http://localhost:3000/api/login", {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    login_id: login_id,
+                    password: password,
+                })
             })
-        })
-        // apiからのレスポンスを受け取る
-        const data = await res.json()
+            // apiからのレスポンスを受け取る
+            const data = await res.json()
 
-        if (data.token) {
-            console.log("ログイン成功");
-            localStorage.setItem("token", data.token)
-            router.push("/myfavoriteplace/top")
-        } else {
-            setError(data.message)
+            if (data.token) {
+                console.log("ログイン成功");
+                localStorage.setItem("token", data.token)
+                router.push("/myfavoriteplace/top")
+            } else {
+                setError(data.message)
+            }
+        } catch (error) {
+            console.error("JSONパースエラー:", error);
         }
+
     }
 
     return (
