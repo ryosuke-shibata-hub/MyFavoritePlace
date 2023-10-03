@@ -7,6 +7,7 @@ import { faStreetView } from '@fortawesome/free-solid-svg-icons'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
+import { signIn } from "next-auth/react";
 
 const Login = () => {
     const [login_id, setLoginId] = useState("")
@@ -20,27 +21,37 @@ const Login = () => {
     const submitHandler = async (e) => {
         e.preventDefault()
         try {
-            const res = await fetch("http://localhost:3000/api/login", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    login_id: login_id,
-                    password: password,
-                })
+            // const res = await fetch("http://localhost:3000/api/login", {
+            //     method: "POST",
+            //     headers: {
+            //         "Accept": "application/json",
+            //         "Content-Type": "application/json",
+            //     },
+            //     body: JSON.stringify({
+            //         login_id: login_id,
+            //         password: password,
+            //     })
+            // })
+            const res = await signIn("credentials", {
+                login_id,
+                password,
+                redirect: false,
             })
-            // apiからのレスポンスを受け取る
-            const data = await res.json()
 
-            if (data.token) {
-                console.log("ログイン成功");
-                localStorage.setItem("token", data.token)
-                router.push("/myfavoriteplace/top")
-            } else {
-                setError(data.message)
+            if (res.error) {
+                setError("例外エラー(credentials)")
             }
+            // apiからのレスポンスを受け取る
+            router.replace("/myfavoriteplace/top")
+            // const data = await res.json()
+
+            // if (data.token) {
+            //     console.log("ログイン成功");
+            //     localStorage.setItem("token", data.token)
+            //     router.push("/myfavoriteplace/top")
+            // } else {
+            //     setError(data.message)
+            // }
         } catch (error) {
             console.error("JSONパースエラー:", error);
         }
@@ -118,7 +129,11 @@ const Login = () => {
                                     >
                                         ログイン
                                     </button>
-
+                                    {error && (
+                                        <div className='px-3 py-1 mt-2 text-sm text-white bg-red-500 rounded-md w-fit'>
+                                            {error}
+                                        </div>
+                                    )}
                                     <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                         <a href="#" className="text-gray-700 underline">
                                             ログインIDまたはパスワードをお忘れですか？

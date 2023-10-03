@@ -21,3 +21,7 @@
 
 # jwtのライブラリ
 # npm install jsonwebtoken@8.5.1
+# cookieのライブラリ
+# npm install js-cookie
+# nextauthのインストール
+# npm install next-auth

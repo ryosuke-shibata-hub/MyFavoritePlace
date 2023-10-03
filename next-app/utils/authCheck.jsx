@@ -1,26 +1,29 @@
+"use client"
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
 import jwt from "jsonwebtoken";
 
-const authCheck = () => {
-    const [loginUser, setLoginUser] = useState({ username: "", login_id: "" })
-    const router = useRouter()
+const secret_key = "nextmarket"
 
-    //トークンを取り出して検証
+const authCheck = () => {
+    const [loginUser, setLoginUser] = useState("")
+    const router = useRouter()
     useEffect(() => {
         const token = localStorage.getItem("token")
-        if (!token) {
-            router.push("/infomation/login")
-        }
 
-        try {
-            //トークンを検証
-            const decoded = jwt.verify(token, process.env.NEXT_PUBLIC_SECRET_KEY)
-            setLoginUser(decoded)
-        } catch (error) {
-            router.push("/infomation/login")
+        if (!token) {
+            router.push("/user/login")
         }
-    })
+        try {
+            const decode = jwt.verify(token, secret_key)
+            setLoginUser(decode.email)
+
+        } catch (error) {
+            console.log(error);
+            router.push("/user/login")
+        }
+    }, [router])
+    return loginUser
 }
 
 export default authCheck
