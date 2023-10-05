@@ -39,11 +39,10 @@ export async function POST(req) {
         }
 
     } catch (error) {
-        console.log("例外エラー");
         return NextResponse.json({
-            message: "ユーザー登録失敗"
+            message: "ユーザー登録に失敗しました。"
         }, {
-            status: 400
+            status: 500
         })
     }
 }

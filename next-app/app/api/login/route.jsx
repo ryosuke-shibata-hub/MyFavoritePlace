@@ -32,7 +32,6 @@ export async function POST(req) {
         const isPasswordMatch = await comparePassword(requestPassword, saveUser.password)
 
         if (!saveUser) {
-            console.log("アカウントがない");
             return NextResponse.json({
                 message: "ログインIDまたはパスワードが間違っています。", status: 400
             })
