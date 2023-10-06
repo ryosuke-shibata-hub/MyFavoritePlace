@@ -28,7 +28,8 @@ export default function LoginForm() {
 
             if (res.error) {
                 console.log(res.error);
-                setError("例外エラー(credentials)")
+                setError("ログインIDまたはパスワードが違います。")
+                return
             }
             // apiからのレスポンスを受け取る
             router.replace("/myfavoriteplace/top")

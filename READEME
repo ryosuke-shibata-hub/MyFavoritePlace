@@ -25,3 +25,6 @@
 # npm install js-cookie
 # nextauthのインストール
 # npm install next-auth
+# hash化するやつ
+# npm install bcrypt
+# npm i bcryptjs
