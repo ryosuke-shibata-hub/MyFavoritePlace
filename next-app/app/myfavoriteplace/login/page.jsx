@@ -1,6 +1,6 @@
 "use client"
 import React, { useState } from 'react'
-import LoginForm from '@/app/component/loginForm'
+import LoginForm from '/components/loginForm'
 
 const Login = () => {
     return (

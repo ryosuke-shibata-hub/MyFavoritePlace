@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const Schema = mongoose.Schema
 const UserSchema = new Schema({
-    username: {
+    name: {
         type: String,
         required: true,
         unique: true,
@@ -31,7 +31,7 @@ const UserSchema = new Schema({
         required: true,
         unique: false
     },
-    user_logo: {
+    image: {
         type: String,
         required: true,
         unique: false,

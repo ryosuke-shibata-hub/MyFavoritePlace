@@ -13,7 +13,6 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "autoprefixer": "10.4.15",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.1",
@@ -26,13 +25,14 @@
     "mongoose": "^7.5.2",
     "next": "^13.5.4",
     "next-auth": "^4.23.2",
-    "postcss": "^8.4.31",
     "promise-mysql": "^5.2.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tailwindcss": "3.3.3"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@types/react": "18.2.22"
+    "@types/react": "18.2.22",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3"
   }
 }

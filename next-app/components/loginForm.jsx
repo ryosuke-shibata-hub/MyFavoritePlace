@@ -9,7 +9,7 @@ config.autoAddCss = false
 import { signIn } from "next-auth/react";
 
 export default function LoginForm() {
-    const [login_id, setLoginId] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] = useState("")
 
@@ -21,7 +21,7 @@ export default function LoginForm() {
         e.preventDefault()
         try {
             const res = await signIn("credentials", {
-                login_id,
+                email,
                 password,
                 redirect: false,
             })
@@ -67,18 +67,18 @@ export default function LoginForm() {
                             <form onSubmit={submitHandler} action="#" className="grid grid-cols-6 gap-6 mt-8">
                                 <div className="col-span-12 sm:col-span-6">
                                     <label
-                                        htmlFor="loginId"
+                                        htmlFor="email"
                                         className="block text-sm font-medium text-gray-700"
                                     >
-                                        ログインID
+                                        登録済みメールアドレス
                                     </label>
 
                                     <input
-                                        value={login_id}
-                                        onChange={(e) => setLoginId(e.target.value)}
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
                                         type="text"
-                                        id="loginId"
-                                        name="login_id"
+                                        id="Email"
+                                        name="email"
                                         className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
                                     />
                                 </div>

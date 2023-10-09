@@ -12,14 +12,14 @@ config.autoAddCss = false
 
 export default function RegisterForm() {
     const [login_id, setLoginId] = useState("")
-    const [username, setUsername] = useState("")
+    const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [password_confirmation, setPasswordConfirmation] = useState("")
     const [error, setError] = useState("")
     const roll = 10
     const delete_flg = 0
-    const logo = "/default"
+    const image = "/default"
 
     //登録完了後にログイン画面に移動
     const router = useRouter()
@@ -28,7 +28,7 @@ export default function RegisterForm() {
     const submitHandler = async (e) => {
         e.preventDefault()
 
-        if (!login_id || !username || !email || !password || !password_confirmation) {
+        if (!login_id || !name || !email || !password || !password_confirmation) {
             return setError("アカウント登録情報を全て入力して下さい。")
         }
         if (password != password_confirmation) {
@@ -43,12 +43,12 @@ export default function RegisterForm() {
                 },
                 body: JSON.stringify({
                     login_id: login_id,
-                    username: username,
+                    name: name,
                     email: email,
                     password: password,
                     roll: roll,
                     delete_flg: delete_flg,
-                    user_logo: logo,
+                    image: image,
                 })
             })
             const data = await res.json()
@@ -117,18 +117,18 @@ export default function RegisterForm() {
 
                                 <div className="col-span-12 sm:col-span-6">
                                     <label
-                                        htmlFor="username"
+                                        htmlFor="userName"
                                         className="block text-sm font-medium text-gray-700"
                                     >
                                         ユーザーネーム
                                     </label>
 
                                     <input
-                                        value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
                                         type="text"
-                                        id="username"
-                                        name="username"
+                                        id="userName"
+                                        name="name"
                                         className="w-full p-3 mt-1 text-sm text-gray-700 bg-white border border-gray-200 rounded-md shadow-md required"
                                     />
                                 </div>

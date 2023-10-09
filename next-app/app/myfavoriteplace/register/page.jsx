@@ -7,7 +7,7 @@ import { faStreetView } from '@fortawesome/free-solid-svg-icons'
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
-import RegisterForm from "@/app/component/RegisterForm";
+import RegisterForm from "@/components/RegisterForm";
 
 const Register = () => {
     return (

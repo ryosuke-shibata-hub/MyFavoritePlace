@@ -11,9 +11,9 @@ export async function POST(req) {
         const bcrypt = require('bcrypt');
         const body = await req.json()
         //受け取った値からloginIdのみ取り出す
-        const requestLoginId = body.login_id
+        const requestEmail = body.email
         //既存アカウントの存在チェック
-        const checkUser = await UserModel.findOne({ login_id: requestLoginId })
+        const checkUser = await UserModel.findOne({ email: requestEmail })
 
         if (checkUser) {
             return NextResponse.json({
@@ -29,8 +29,9 @@ export async function POST(req) {
             const hashedPassword = await bcrypt.hash(plaintextPassword, saltRounds)
             //提供されたパスワードをhash化
             body.password = hashedPassword
-
+            console.log(body);
             await UserModel.create(body)
+
             return NextResponse.json({
                 message: "ユーザー登録完了"
             }, {
@@ -39,6 +40,7 @@ export async function POST(req) {
         }
 
     } catch (error) {
+        console.log(error);
         return NextResponse.json({
             message: "ユーザー登録に失敗しました。"
         }, {

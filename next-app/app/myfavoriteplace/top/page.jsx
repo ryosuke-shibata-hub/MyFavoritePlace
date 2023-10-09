@@ -1,10 +1,13 @@
 "use client"
 import React, { useState } from 'react'
-import UserInfo from '@/app/component/UserInfo'
+import MainContent from '/components/TopPage/MainContent'
 
-const Login = () => {
+const TopPage = () => {
     return (
-        <UserInfo />
+        <>
+            <MainContent />
+        </>
+
     )
 }
-export default Login
+export default TopPage

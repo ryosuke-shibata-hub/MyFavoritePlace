@@ -1,3 +1,3 @@
 export { default } from "next-auth/middleware";
 
-export const config = { matcher: ["/myfavoriteplace/top"] };
+export const config = { matcher: ["/myfavoriteplace/top","/myfavoriteplace/mypage"] };
